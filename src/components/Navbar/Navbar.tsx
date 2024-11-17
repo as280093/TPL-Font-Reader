@@ -64,12 +64,11 @@ const Navbar: React.FC = () => {
           <h3>Why I Made This</h3>
           <p>So, here's the deal: I use Photoshop a lot, and something that really annoys me is when I install a new .tpl file, and some fonts are missing. Photoshop doesn't even bother telling me—it just switches everything to Myriad Pro like nothing happened. And honestly, that's super frustrating.</p>
           <p>I got tired of guessing what fonts were missing and manually fixing things, so I decided to make this little tool. It's simple: it helps you figure out what fonts are missing from your .tpl files so you don't have to deal with surprises or wasted time.</p>
-          <h3>What It Does 🤔</h3>
+          <h3>What It Does</h3>
           <ul>
             <li>🔍 Reads your .tpl files and shows exactly which fonts you have and don't have.</li>
             <li>📋 Copy font names with one click</li>
             <li>🔗 Quick Google search links to find missing fonts</li>
-            <li>🌗 Dark/Light Mode: Because everyone has preferences—but let's be real, I'm already on the dark side (we have cookies).</li>
           </ul>
           <p className="made-with">
             Made with ❤️ by <a href={`https://github.com/${repoInfo.owner}`} target="_blank" rel="noopener noreferrer">
