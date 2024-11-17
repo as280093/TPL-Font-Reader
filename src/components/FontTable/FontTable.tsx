@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaSearch, FaCheck, FaTimes, FaCopy } from 'react-icons/fa';
 import './FontTable.css';
+import { checkFontAvailability } from '../../utils/fontUtils';
 
 interface FontTableProps {
   fonts: Array<{
@@ -14,22 +15,21 @@ interface FontTableProps {
 }
 
 const FontTable: React.FC<FontTableProps> = ({ fonts, onNotification }) => {
-  React.useEffect(() => {
-    // Preload fonts
-    fonts.forEach(font => {
-      const fontFace = new FontFace(
-        font.family,
-        `local("${font.family}")`,
-        {
-          style: font.style.toLowerCase().includes('italic') ? 'italic' : 'normal',
-          weight: font.style.toLowerCase().includes('bold') ? 'bold' : 'normal'
-        }
-      );
+  const [fontCache, setFontCache] = React.useState<Record<string, boolean>>({});
 
-      fontFace.load().catch(() => {
-        // Font failed to load - this is expected for missing fonts
-      });
-    });
+  React.useEffect(() => {
+    const checkFonts = async () => {
+      for (const font of fonts) {
+        const isAvailable = await checkFontAvailability(
+          font.family,
+          font.style,
+          fontCache,
+          setFontCache
+        );
+      }
+    };
+    
+    checkFonts();
   }, [fonts]);
 
   const handleCopyFont = async (fontName: string) => {

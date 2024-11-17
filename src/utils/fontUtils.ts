@@ -29,28 +29,26 @@ export const checkFontAvailability = (
   
   const defaultWidth = detector.offsetWidth;
   
-  try {
-    detector.style.fontFamily = `"${fontFamily.trim()}", "Comic Sans MS"`;
-    if (fontStyle) {
-      detector.style.fontWeight = fontStyle.includes('Bold') ? 'bold' : 'normal';
-      detector.style.fontStyle = fontStyle.includes('Italic') ? 'italic' : 'normal';
+  return new Promise((resolve) => {
+    try {
+      detector.style.fontFamily = `"${fontFamily.trim()}", "Comic Sans MS"`;
+      if (fontStyle) {
+        detector.style.fontWeight = fontStyle.includes('Bold') ? 'bold' : 'normal';
+        detector.style.fontStyle = fontStyle.includes('Italic') ? 'italic' : 'normal';
+      }
+      
+      setTimeout(() => {
+        const isAvailable = defaultWidth !== detector.offsetWidth;
+        setFontCache(prev => ({...prev, [cacheKey]: isAvailable}));
+        document.body.removeChild(detector);
+        resolve(isAvailable);
+      }, 300);
+    } catch (error) {
+      document.body.removeChild(detector);
+      setFontCache(prev => ({...prev, [cacheKey]: false}));
+      resolve(false);
     }
-    
-    setTimeout(() => {
-      const isAvailable = defaultWidth !== detector.offsetWidth;
-      setFontCache(prev => ({...prev, [cacheKey]: isAvailable}));
-    }, 100);
-
-    const isAvailable = defaultWidth !== detector.offsetWidth;
-    document.body.removeChild(detector);
-    
-    setFontCache(prev => ({...prev, [cacheKey]: isAvailable}));
-    return isAvailable;
-  } catch {
-    document.body.removeChild(detector);
-    setFontCache(prev => ({...prev, [cacheKey]: false}));
-    return false;
-  }
+  });
 };
 
 export const extractFontContent = (hexData: string): string[] => {
