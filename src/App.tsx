@@ -31,13 +31,13 @@ const App: React.FC = () => {
   }, [hexLookup]);
 
   // Handle file upload and only use .tpl files
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.name.endsWith('.tpl')) {
       setFileName(file.name);
 
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         const buffer = e.target?.result as ArrayBuffer;
         const binaryData = Array.from(new Uint8Array(buffer))
           .map(byte => String.fromCharCode(byte))
@@ -45,8 +45,6 @@ const App: React.FC = () => {
         const hexData = convertToHex(binaryData);
         const extractedFonts = extractFontContent(hexData);
         
-        // Filter out Myriad Pro-Regular and process remaining fonts 
-        // Simple reason is that even if there in no Text preset in TPL and if there is other then it has Myriad Pro-Regular as placeholder so to just ignore it showing not showing doesnt matter as its already installed in photoshop
         const validFonts = extractedFonts
           .map(fontJson => JSON.parse(fontJson))
           .filter(font => font.combined !== 'Myriad Pro-Regular');
@@ -57,18 +55,15 @@ const App: React.FC = () => {
           return;
         }
 
-        // Add a small delay before checking fonts
-        setTimeout(() => {
-          const processed = validFonts.map(font => ({
-            original: font.combined,
-            formatted: formatFontName(font.combined),
-            family: font.family,
-            style: font.style,
-            isInstalled: checkFontAvailability(font.family, font.style, fontCache, setFontCache)
-          }));
-          
-          setFormattedFonts(processed);
-        }, 200); // 200ms delay to allow fonts to load, without it some fonts are not detected
+        const processed = await Promise.all(validFonts.map(async font => ({
+          original: font.combined,
+          formatted: formatFontName(font.combined),
+          family: font.family,
+          style: font.style,
+          isInstalled: await checkFontAvailability(font.family, font.style, fontCache, setFontCache)
+        })));
+        
+        setFormattedFonts(processed);
       };
       reader.readAsArrayBuffer(file);
     } else {

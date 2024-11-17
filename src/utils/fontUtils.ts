@@ -8,28 +8,28 @@ export const formatFontName = (fontName: string): string => {
     .trim();
 };
 
-export const checkFontAvailability = (
+export const checkFontAvailability = async (
   fontFamily: string, 
   fontStyle: string = '', 
   fontCache: Record<string, boolean>,
   setFontCache: React.Dispatch<React.SetStateAction<Record<string, boolean>>>
-): boolean => {
+): Promise<boolean> => {
   const cacheKey = `${fontFamily}-${fontStyle}`;
   if (fontCache[cacheKey] !== undefined) {
     return fontCache[cacheKey];
   }
 
-  const detector = document.createElement('span');
-  detector.style.visibility = 'hidden';
-  detector.style.position = 'absolute';
-  detector.style.fontSize = '72px';
-  detector.style.fontFamily = '"Comic Sans MS"';
-  detector.textContent = 'i am invisible';
-  document.body.appendChild(detector);
-  
-  const defaultWidth = detector.offsetWidth;
-  
   return new Promise((resolve) => {
+    const detector = document.createElement('span');
+    detector.style.visibility = 'hidden';
+    detector.style.position = 'absolute';
+    detector.style.fontSize = '72px';
+    detector.style.fontFamily = '"Comic Sans MS"';
+    detector.textContent = 'i am invisible';
+    document.body.appendChild(detector);
+    
+    const defaultWidth = detector.offsetWidth;
+    
     try {
       detector.style.fontFamily = `"${fontFamily.trim()}", "Comic Sans MS"`;
       if (fontStyle) {

@@ -53,7 +53,7 @@ If this saved you from the Myriad Pro surprise:
 - Share it with your designer friends
 - [Report any issues](https://github.com/as280093/TPL-Font-Reader/issues) you find
 
-## Contributing 
+## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Before reporting a new issue check if there are already opened issues.

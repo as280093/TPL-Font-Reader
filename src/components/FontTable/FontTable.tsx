@@ -20,7 +20,7 @@ const FontTable: React.FC<FontTableProps> = ({ fonts, onNotification }) => {
   React.useEffect(() => {
     const checkFonts = async () => {
       for (const font of fonts) {
-        const isAvailable = await checkFontAvailability(
+        await checkFontAvailability(
           font.family,
           font.style,
           fontCache,
