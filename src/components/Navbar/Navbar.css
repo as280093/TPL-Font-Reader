@@ -1,0 +1,111 @@
+.navbar {
+	 background: var(--bg-secondary);
+	 padding: 1rem 2rem;
+	 display: flex;
+	 justify-content: space-between;
+	 align-items: center;
+	 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	 position: sticky;
+	 top: 0;
+	 z-index: 100;
+	 border-bottom: 1px solid var(--border-color);
+	
+}
+
+.navbar-brand h1 {
+	 margin: 0;
+	 font-size: 1.5rem;
+	 font-weight: 700;
+	 color: var(--primary-color);
+	
+}
+
+.navbar-links {
+	 display: flex;
+	 align-items: center;
+	 gap: 1.5rem;
+	
+}
+
+.nav-link {
+	 color: var(--text-primary);
+	 text-decoration: none;
+	 font-size: 0.95rem;
+	 transition: all 0.2s ease;
+	 padding: 0.5rem 1rem;
+	 border-radius: 6px;
+	 display: flex;
+	 align-items: center;
+	
+}
+
+.nav-link:hover {
+	 color: var(--accent-color);
+	 background: rgba(37, 99, 235, 0.15);
+	
+}
+
+.nav-link:focus {
+	 outline: 2px solid var(--accent-color);
+	 outline-offset: 2px;
+	
+}
+
+.theme-toggle {
+	 background-color: transparent;
+	 border: 2px solid var(--primary-color);
+	 color: var(--text-dark);
+	 padding: 0.5rem 1rem;
+	 border-radius: 6px;
+	 cursor: pointer;
+	 font-size: 0.9rem;
+	 transition: all 0.2s ease;
+	
+}
+
+.theme-toggle:hover {
+	 background-color: var(--primary-color);
+	 color: white;
+	
+}
+
+.nav-icon {
+	 margin-right: 0.5rem;
+	 font-size: 1.1rem;
+	 vertical-align: middle;
+	
+}
+
+
+
+/* Light theme overrides */
+body[data-theme="light"] .navbar {
+	 background: var(--light-nav);
+	 border-bottom: 1px solid var(--border-color);
+	
+}
+
+body[data-theme="light"] .nav-link {
+	 color: var(--text-light);
+	
+}
+
+body[data-theme="light"] .nav-link:hover {
+	 background: rgba(37, 99, 235, 0.1);
+	
+}
+
+body[data-theme="light"] .theme-toggle {
+	 color: var(--text-light);
+	 border-color: var(--primary-color);
+	
+}
+
+
+
+/* Hide menu toggle by default */
+.menu-toggle {
+	 display: none;
+	
+}
+

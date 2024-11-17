@@ -1,0 +1,111 @@
+.font-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.font-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.font-name {
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+  flex: 1;
+  padding: 0.25rem 0;
+  color: inherit;
+}
+
+.font-name:hover {
+  color: var(--primary-color);
+}
+
+.badge-icon {
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.missing-badge, .installed-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.missing-badge {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.installed-badge {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.search-button, .copy-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-button:hover, .copy-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.copy-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #666;
+}
+
+.copy-button.disabled:hover {
+  background-color: #666;
+}
+
+.font-table th,
+.font-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.font-table th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.duplicate-badge {
+  background-color: var(--warning-color);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+} 

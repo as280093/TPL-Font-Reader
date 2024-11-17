@@ -1,0 +1,68 @@
+/* Import all component CSS files */
+@import './App.css';
+@import './components/common/Modal.css';
+@import './components/Footer/Footer.css';
+@import './components/Navbar/Navbar.css';
+
+:root {
+  /* Core Colors - These don't change with theme */
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --accent-color: #60a5fa;
+  --accent-hover: #93c5fd;
+  
+  /* Dark Theme (default) */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-card: #242424;
+  --border-color: #333333;
+  
+  /* Status Colors */
+  --success-color: #15803d;
+  --danger-color: #dc2626;
+  --warning-color: #d97706;
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Dark Theme (default) */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Table Styles */
+.app[data-theme="light"] .rdt_Table {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.app[data-theme="light"] .rdt_TableRow {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background-color: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Dark Theme Hover */
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+} 
