@@ -2,7 +2,7 @@
   "name": "tpl-font-reader",
   "private": true,
   "version": "1.0.0",
-  "homepage": "https://as280093.github.io/TPL-Font-Reader",
+  "homepage": "https://as280093.github.io/tpl-font-reader",
   "type": "module",
   "scripts": {
     "dev": "vite",

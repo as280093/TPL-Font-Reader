@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
 
   const repoInfo = {
     owner: import.meta.env.VITE_GITHUB_USERNAME || 'as280093',
-    repo: 'TPL-Font-Reader'
+    repo: 'tpl-font-reader'
   };
 
   const toggleMenu = () => {

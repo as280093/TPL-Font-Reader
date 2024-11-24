@@ -10,23 +10,31 @@ interface FontTableProps {
     family: string;
     style: string;
     isInstalled: boolean;
+    presetName: string;
   }>;
   onNotification: (message: string) => void;
 }
 
 const FontTable: React.FC<FontTableProps> = ({ fonts, onNotification }) => {
+  const [checkedFonts, setCheckedFonts] = React.useState<Array<typeof fonts[0]>>(fonts);
   const [fontCache, setFontCache] = React.useState<Record<string, boolean>>({});
 
   React.useEffect(() => {
     const checkFonts = async () => {
-      for (const font of fonts) {
-        await checkFontAvailability(
+      const updatedFonts = [...fonts];
+      
+      for (let i = 0; i < fonts.length; i++) {
+        const font = fonts[i];
+        const isInstalled = await checkFontAvailability(
           font.family,
           font.style,
           fontCache,
           setFontCache
         );
+        updatedFonts[i] = { ...font, isInstalled };
       }
+      
+      setCheckedFonts(updatedFonts);
     };
     
     checkFonts();
@@ -43,7 +51,7 @@ const FontTable: React.FC<FontTableProps> = ({ fonts, onNotification }) => {
 
   const handleCopyMissingFonts = async () => {
     try {
-      const missingFonts = fonts
+      const missingFonts = checkedFonts
         .filter(font => !font.isInstalled)
         .map(font => font.original);
 
@@ -59,22 +67,11 @@ const FontTable: React.FC<FontTableProps> = ({ fonts, onNotification }) => {
     }
   };
 
-  // Process duplicates
-  const processedFonts = fonts.reduce((acc, font) => {
-    const existing = acc.find(f => f.original === font.original);
-    if (existing) {
-      existing.count = (existing.count || 1) + 1;
-    } else {
-      acc.push({ ...font, count: 1 });
-    }
-    return acc;
-  }, [] as Array<typeof fonts[0] & { count?: number }>);
-
-  if (!fonts || fonts.length === 0) {
+  if (!checkedFonts || checkedFonts.length === 0) {
     return null;
   }
 
-  const missingFontsCount = processedFonts.filter(font => !font.isInstalled).length;
+  const missingFontsCount = checkedFonts.filter(font => !font.isInstalled).length;
 
   return (
     <div className="table-container">
@@ -95,16 +92,17 @@ const FontTable: React.FC<FontTableProps> = ({ fonts, onNotification }) => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Preset Name</th>
             <th>Font Name</th>
             <th>Status</th>
-            <th>Duplicates</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {processedFonts.map((font, index) => (
+          {checkedFonts.map((font, index) => (
             <tr key={`${font.original}-${index}`}>
               <td>{index + 1}</td>
+              <td>{font.presetName}</td>
               <td>
                 <div className="font-cell">
                   <span 
@@ -123,13 +121,6 @@ const FontTable: React.FC<FontTableProps> = ({ fonts, onNotification }) => {
                     <><FaTimes className="badge-icon" /> Missing</>
                   )}
                 </span>
-              </td>
-              <td>
-                {font.count && font.count > 1 ? (
-                  <span className="duplicate-badge">
-                    × {font.count}
-                  </span>
-                ) : null}
               </td>
               <td>
                 <button

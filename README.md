@@ -1,10 +1,10 @@
-# TPL Font Reader 🎨
+# TPL Font Reader
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
-[![GitHub Pages](https://img.shields.io/website?url=https%3A%2F%2Fas280093.github.io%2FTPL-Font-Reader)](https://as280093.github.io/TPL-Font-Reader)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/as280093/TPL-Font-Reader)
-[![CI](https://github.com/as280093/TPL-Font-Reader/actions/workflows/ci.yml/badge.svg)](https://github.com/as280093/TPL-Font-Reader/actions/workflows/ci.yml)
+[![GitHub Pages](https://img.shields.io/website?url=https%3A%2F%2Fas280093.github.io%2Ftpl-font-reader)](https://as280093.github.io/tpl-font-reader)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/as280093/tpl-font-reader)
+[![CI](https://github.com/as280093/tpl-font-reader/actions/workflows/ci.yml/badge.svg)](https://github.com/as280093/tpl-font-reader/actions/workflows/ci.yml)
 
 > A web tool that finds missing fonts in Tool Presets(.tpl) files.
 
@@ -25,14 +25,31 @@ I made this for myself initially, but if it helps someone else too, then that's 
 
 ---
 
+## Known Issues
+
+1. Font Detection Accuracy
+   - Bold/Italic detection may show false positives
+   - Some font styles might not be detected correctly on macOS
+   - Multiple font checks needed for reliability
+
+2. Performance
+   - Large .tpl files may take longer to process
+   - Font detection runs multiple times for accuracy
+
+3. Browser Compatibility
+   - Best experience in Chrome/Firefox
+   - Font detection may vary across browsers
+
+---
+
 ## Link
 
-[GitHub Pages](https://as280093.github.io/TPL-Font-Reader)
+[GitHub Pages](https://as280093.github.io/tpl-font-reader)
 
 ## How to run it locally
 
 ```bash
-git clone https://github.com/as280093/TPL-Font-Reader.git
+git clone https://github.com/as280093/tpl-font-reader.git
 ```
 
 ```bash
@@ -51,7 +68,7 @@ If this saved you from the Myriad Pro surprise:
 
 - Give it a star! It helps others find the tool
 - Share it with your designer friends
-- [Report any issues](https://github.com/as280093/TPL-Font-Reader/issues) you find
+- [Report any issues](https://github.com/as280093/tpl-font-reader/issues) you find
 
 ## Contributing
 

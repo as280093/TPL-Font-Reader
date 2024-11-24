@@ -100,12 +100,3 @@
   font-weight: 600;
   color: var(--text-primary);
 }
-
-.duplicate-badge {
-  background-color: var(--warning-color);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-weight: 500;
-} 

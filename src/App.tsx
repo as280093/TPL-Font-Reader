@@ -13,9 +13,11 @@ const App: React.FC = () => {
     family: string;
     style: string;
     isInstalled: boolean;
+    presetName: string;
   }>>([]);
   const [notification, setNotification] = useState<string>('');
   const [fontCache, setFontCache] = useState<Record<string, boolean>>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const hexLookup = new Array(256).fill('').map((_, i) => i.toString(16).padStart(2, '0'));
 
@@ -30,11 +32,12 @@ const App: React.FC = () => {
     return result.join('');
   }, [hexLookup]);
 
-  // Handle file upload and only use .tpl files
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.name.endsWith('.tpl')) {
+      setFormattedFonts([]);
       setFileName(file.name);
+      setIsLoading(true);
 
       const reader = new FileReader();
       reader.onload = async (e) => {
@@ -55,15 +58,26 @@ const App: React.FC = () => {
           return;
         }
 
-        const processed = await Promise.all(validFonts.map(async font => ({
-          original: font.combined,
-          formatted: formatFontName(font.combined),
-          family: font.family,
-          style: font.style,
-          isInstalled: await checkFontAvailability(font.family, font.style, fontCache, setFontCache)
-        })));
+        const processed = await Promise.all(validFonts.map(async font => {
+          const isInstalled = await checkFontAvailability(
+            font.family,
+            font.style,
+            fontCache,
+            setFontCache
+          );
+          console.log(`Font check result for ${font.combined}: ${isInstalled}`);
+          return {
+            original: font.combined,
+            formatted: formatFontName(font.combined),
+            family: font.family,
+            style: font.style,
+            presetName: font.presetName,
+            isInstalled
+          };
+        }));
         
         setFormattedFonts(processed);
+        setIsLoading(false);
       };
       reader.readAsArrayBuffer(file);
     } else {
@@ -92,7 +106,9 @@ const App: React.FC = () => {
               <input type="file" accept=".tpl" onChange={handleFileUpload} />
               Open File
             </label>
-            <span className="file-name">{fileName}</span>
+            <span className="file-name">
+              {fileName} {isLoading && '(Loading...)'}
+            </span>
           </div>
         </header>
         {formattedFonts.length > 0 ? (
